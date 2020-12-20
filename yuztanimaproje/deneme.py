@@ -1,0 +1,10 @@
+import tkinter as tk
+root = tk.Tk()
+root.geometry("1000x250")
+ll = tk.Label(root, text='lower left')
+lr = tk.Label(root, text='lower right')
+##ll.place(x=0, y=250, anchor='sw')
+##lr.place(x=1000, y=250, anchor='se')
+ll.place(relx=0.1, rely=1.2, anchor='sw')
+lr.place(relx=1.0, rely=1.0, anchor='se')
+root.mainloop()

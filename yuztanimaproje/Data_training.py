@@ -54,4 +54,4 @@ with open("labels", "wb") as f:
 recognizer.train(xTrain, np.array(yLabels))
 recognizer.save("trainer.yml")
 print(labelIds)
-exec(open("Face_recognition.py").read())
+#exec(open("Face_recognition.py").read())

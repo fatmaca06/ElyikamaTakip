@@ -16,7 +16,11 @@ minH = 0.1*camera.get(4)
 
 faceCascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 
-name = input("AD/SOYAD? ")
+with open('Users.txt', encoding='utf8') as adsoyad:
+    for line in adsoyad:
+        print(line.strip())
+name = line.strip()
+adsoyad.close()
 dirName = "./images/" + name
 print(dirName)
 if not os.path.exists(dirName):

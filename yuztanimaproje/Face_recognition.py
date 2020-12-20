@@ -1,10 +1,17 @@
 import cv2,os
-import numpy as np 
+import numpy as np
 import pickle
-from PIL import Image 
+
 
 id = 0
-#names = ['None', '', 'X', 'A', 'B', 'C']
+with open('Users.txt', encoding='utf8') as adsoyad:
+    for line in adsoyad:
+        nameinfo = line.strip()
+adsoyad.close()
+
+# names related to ids: example ==> yasinakun: id=1,  etc
+names = ['None', nameinfo, 'X', 'A', 'B', 'C']
+
 
 
 with open('labels', 'rb') as f:
@@ -35,13 +42,11 @@ while True:
 
         id, confidence = recognizer.predict(gray[y:y + h, x:x + w])
 
-
+        # Check if confidence is less them 100 ==> "0" is perfect match
         if (confidence < 100):
 
-           # idname = names[id]
-            names = ['None', id , 'X', 'A', 'B', 'C']
+            id = names[id]
             confidence = "  {0}%".format(round(100 - confidence))
-
         else:
 
             id = "unknown"
@@ -52,11 +57,11 @@ while True:
 
     cv2.imshow('camera', im)
 
-    k = cv2.waitKey(10) & 0xff
+    k = cv2.waitKey(10) & 0xff  # Press 'ESC' for exiting video
     if k == 27:
         break
 
+# Do a bit of cleanup
 print("\n [INFO] Exiting Program and cleanup stuff")
-
 camera.release()
 cv2.destroyAllWindows()
