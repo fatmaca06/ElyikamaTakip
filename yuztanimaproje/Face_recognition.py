@@ -9,7 +9,7 @@ with open('Users.txt', encoding='utf8') as adsoyad:
         nameinfo = line.strip()
 adsoyad.close()
 
-# names related to ids: example ==> yasinakun: id=1,  etc
+
 names = ['None', nameinfo, 'X', 'A', 'B', 'C']
 
 
