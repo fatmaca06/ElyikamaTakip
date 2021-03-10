@@ -58,17 +58,23 @@ def hide_newuser():  #aynı form üzerinde tooların görünmesini çalışması
     kisiEkle.place_forget()
     newUserButton.place(x=5, y=638)
     L2.place(x=200, y=638)
+    calistirButton.place(x=5, y=680)  # buttonun çalışacağı konum fonksiyonu
 def show_newuser():#aynı form üzerinde tooların görünmesini çalışmasını kontroleden kısım
     newUserButton.place_forget()
     L1.place(x=5, y=638)
     E1.place(x=100, y=638)
     kisiEkle.place(x=290, y=638)
+    calistirButton.place(x=5, y=680) #buttonun çalışacağı konum fonksiyonu
 
 def opennewuser(): #formda arka planda new userın çalışmasını sağlayan fonk
    exec(open("New_user.py").read())
 
 def face_recognition(): #yüz tanımayı çağıran fonk
     exec(open("Face_recognition.py").read())
+
+def serial(): #yüz tanımayı çağıran fonk
+  exec(open("mesafes.py").read())
+
 
 ####################FONKSİYON TANIM BİTİŞ####################
 
@@ -95,8 +101,7 @@ L2 = Label(controlCenter, text="Kişi Eklendi ! ",fg="#D9D9D9",font="Helvetica 1
 L2.place_forget()
 newUserButton = Button(controlCenter, text = " Yeni Kişi Ekle ",fg="#D9D9D9",font="Helvetica 12 ",highlightthickness=0, bd= 0, bg="#404040",command = show_newuser)
 newUserButton.place(x=5, y=638)
-
-calistirButton = Button(controlCenter, text = " Çalıştır ",fg="#D9D9D9",font="Helvetica 12 ",highlightthickness=0, bd= 0, bg="#404040",command = face_recognition)
+calistirButton = Button(controlCenter, text = " Çalıştır ",fg="#D9D9D9",font="Helvetica 12 ",highlightthickness=0, bd= 0, bg="#404040",command = serial)
 
 
 
