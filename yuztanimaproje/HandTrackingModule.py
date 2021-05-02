@@ -41,32 +41,42 @@ class handDetector():
 
         return lmList
 
-    # def findPosition(self, img, handNo=1, draw=True):
-
-        # lmList = []
-        # if self.results.multi_hand_landmarks:
-        #     myHand = self.results.multi_hand_landmarks[handNo]
-        #     for id, lm in enumerate(myHand.landmark):
-                # print(id, lm)
-                # h, w, c = img.shape
-                # cx, cy = int(lm.x * w), int(lm.y * h)
-                # print(id, cx, cy)
-                # lmList.append([id, cx, cy])
-                # if draw:
-                #     cv2.circle(img, (cx, cy), 15, (255, 0, 255), cv2.FILLED)
-
-        # return lmList
 def main():
     pTime = 0  # önceki zamanı 0a eşitledik kare hızını belirlemek için yani fps
     cTime = 0  # şimdiki zamanıda 0a eşitledik
+    time.sleep(2.0)
     cap = cv2.VideoCapture(0)
     detector = handDetector() #yukarıda varsayılan parametreler sahip
+    tipIds = [4,8,12,16,20]
+
     while True:
         success, img = cap.read()  # kameramızı oluşturduk
         img =  detector.findHands(img, draw= True)  #aldığımız görüntüyü yani imgi gönderiyoruz
         lmList = detector.findPosition(img, draw= True) #noktaların konumunu
+        fingers = []
         if len(lmList) != 0: #listeleyeceğimiz listenin boyutu 0a eşit değilse ozaman listeleyeceğiz
-            print(lmList[4]) #hangi indeksi yani noktayı istiyorsak baş parmak pozisyonları listeleyeceğiz
+            if lmList[tipIds[0]][1] > lmList[tipIds[0]-1][1]:
+                fingers.append(1)
+            else:
+                fingers.append(0)
+
+            for id in range(1,5):
+             if lmList[tipIds[id]][2] < lmList[tipIds[id]-2][2]:
+                 fingers.append(1)
+             else:
+                 fingers.append(0)
+             total = fingers.count(1) #kaç tane parmak olduğnu hesaplattırıyoruz
+             if total == 0:
+                 print("Close")
+             elif total == 5:
+                 print("Open")
+
+            # if lmList[8][2] < lmList[6][2]:
+            #     print("Open")
+            # else:
+            #     print("Close")
+
+            #print(lmList[4]) #hangi indeksi yani noktayı istiyorsak baş parmak pozisyonları listeleyeceğiz
         #yani burada yaptığımız işlem beliritlen ve istenilen parmağın hangi x,  y koorinatlarında olduğunu listeleyip,
         # ona göre bir hareket belirlemek. İstenilen hareketi konuma göre oluşturacağız
         cTime = time.time()
